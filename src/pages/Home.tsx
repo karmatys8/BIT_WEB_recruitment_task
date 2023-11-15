@@ -5,35 +5,26 @@ import { NobelPrize } from '../types';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 
+type Props = {
+  nobelPrizes: NobelPrize[]
+}
 
-function Home() {
-  const [nobelPrizes, setNobelPrizes] = useState<NobelPrize[]>();
+
+const Home: React.FC<Props> = ({
+  nobelPrizes
+}) => {
   const [prizesYears, setPrizesYears] = useState<number[]>([]);
   const [pickedYear, setPickedYear] = useState<string>('');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch("https://api.nobelprize.org/2.1/nobelPrizes");
-      if (response.ok) {
-        const data = await response.json();
-        setNobelPrizes(data.nobelPrizes);
-      }
-    }
-
-    fetchData()
-      .catch(console.error);
-  }, [])
-
 
   useEffect(() => {
-    if (nobelPrizes !== undefined) {
+    if (nobelPrizes !== undefined) { // probably should change it
       const uniqueYears = new Set<number>();
 
       nobelPrizes.map(prize => uniqueYears.add(prize.awardYear));
 
       setPrizesYears(Array.from(uniqueYears));
     }
-    
   }, [nobelPrizes])
 
 
@@ -57,7 +48,7 @@ function Home() {
           <Typography variant='h6' component='p' margin={1}>
             Pick Nobel prize year:
           </Typography>
-          <FormControl className='form-control'>
+          <FormControl sx={{width: "120px"}}>
             <InputLabel id="demo-simple-select-label">Prize year</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -78,7 +69,7 @@ function Home() {
           <Typography variant='h6' component='p' margin={1}>
             Then click button below to view results.
           </Typography>
-          <Button href={"./" + pickedYear} variant="contained" disabled={! pickedYear}>
+          <Button href={"./" + pickedYear} variant="contained" disabled={! pickedYear}> {/* idk if href works correctly */}
             Search for Rewards
           </Button>
         </Box>

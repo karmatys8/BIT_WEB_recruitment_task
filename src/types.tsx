@@ -14,3 +14,12 @@ export interface NobelPrize {
   prizeAmount: number,
   prizeAmountAdjusted: number
 }
+
+
+export interface Row {
+  id: number,
+  awardYear: number,
+  category: string,
+  dateAwarded: Date,
+  prizeAmount: number
+}
