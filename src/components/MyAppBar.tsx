@@ -4,15 +4,26 @@ import MaterialUISwitch from "./MaterialUISwitch";
 
 function MyAppBar() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, mb: 5 }}>
       <AppBar position="static">
         <Container>
           <Toolbar>
-            <MaterialUISwitch />
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              News
+            <Typography variant="h6" component="div" sx={{mr: 2}}>
+              Home
             </Typography>
-            <Button color="inherit">Login</Button>
+            <Box sx={{ flexGrow: 1, textAlign: "left"}}> {/* a bit of a band-aid solution */}
+              <MaterialUISwitch/>
+            </Box>
+            <label>Change language:
+            <Button>
+              <img src={process.env.PUBLIC_URL + "/images/flags/en.svg"} alt="England's flag" title="England"/>
+            </Button>
+            <Button>
+              <img src={process.env.PUBLIC_URL + "/images/flags/no.svg"} alt="Norway's flag" title="Norway"/>
+            </Button>
+            <Button>
+              <img src={process.env.PUBLIC_URL + "/images/flags/se.svg"} alt="Sweden's flag" title="Sweden"/>
+            </Button></label>
           </Toolbar>
         </Container>
       </AppBar>

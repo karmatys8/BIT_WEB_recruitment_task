@@ -10,16 +10,15 @@ export interface NobelPrize {
     no: string,
     se: string
   },
-  dateAwarded: Date,
+  dateAwarded: string,
   prizeAmount: number,
   prizeAmountAdjusted: number
 }
 
 
 export interface Row {
-  id: number,
   awardYear: number,
   category: string,
-  dateAwarded: Date,
+  dateAwarded: string,
   prizeAmount: number
 }
