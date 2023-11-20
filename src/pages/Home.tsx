@@ -1,14 +1,19 @@
 import React, {useState, useEffect, useRef} from 'react';
+
 import Box from '@mui/material/Box';
-import { Button, FormControl, InputLabel, MenuItem, Typography,} from '@mui/material';
-import { NobelPrize } from '../types';
+import Typography from '@mui/material/Typography';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+
+import { NobelPrize } from '../types';
 
 
 type Props = {
   nobelPrizes: NobelPrize[]
 }
-
 
 const Home: React.FC<Props> = ({
   nobelPrizes

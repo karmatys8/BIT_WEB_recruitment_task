@@ -3,7 +3,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SharedLayout from './pages/SharedLayout';
 import Home from './pages/Home';
-import Year from './pages/Year';
+import YearTable from './pages/Year';
 import Error from './pages/Error';
 import { NobelPrize } from './types';
 
@@ -33,7 +33,7 @@ function App() {
           <Route path="/rewards" element={<SharedLayout />}>
             <Route index element={<Home nobelPrizes={nobelPrizes!} />} /> {/* not sure if this should be the initial path */}
             <Route path="/rewards/:locale" element={<Home nobelPrizes={nobelPrizes!} />}/>
-            <Route path="/rewards/:locale/:year" element={<Year nobelPrizes={nobelPrizes!}/>} />
+            <Route path="/rewards/:locale/:year" element={<YearTable nobelPrizes={nobelPrizes!}/>} />
             <Route path="*" element={<Error />} />
           </Route>
         </Routes>

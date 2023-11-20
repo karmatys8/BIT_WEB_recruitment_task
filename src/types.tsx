@@ -22,3 +22,19 @@ export interface Row {
   dateAwarded: string,
   prizeAmount: number
 }
+
+
+// year table
+export interface HeadCell {
+  id: keyof Row;
+  align?: "left" | "center" | "right" | "inherit" | "justify" | undefined;
+  label: string;
+}
+
+export type Order = 'asc' | 'desc';
+
+export interface TableProps {
+  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Row) => void;
+  order: Order;
+  orderBy: string;
+}
