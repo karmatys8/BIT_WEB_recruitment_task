@@ -5,7 +5,7 @@ export function dotDateFormat(date: Date): string {
   if (! Number.isNaN(date.valueOf())) {
     return [date.getDate(), date.getMonth() + 1, date.getFullYear()].join('.');
 
-  } else return "Not provided"; // maybe make it global?
+  } else return "";
 }
 
 
@@ -13,7 +13,7 @@ export function spaceNumberFormat(num: number): string {
   if (! Number.isNaN(num)) {
     return num.toLocaleString("fr");
 
-  } else return "Not provided";
+  } else return "";
 }
 
 

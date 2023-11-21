@@ -30,10 +30,11 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/rewards" element={<SharedLayout />}>
+          <Route path="/" element={<SharedLayout />}>
             <Route index element={<Home nobelPrizes={nobelPrizes!} />} /> {/* not sure if this should be the initial path */}
-            <Route path="/rewards/:locale" element={<Home nobelPrizes={nobelPrizes!} />}/>
-            <Route path="/rewards/:locale/:year" element={<YearTable nobelPrizes={nobelPrizes!}/>} />
+            <Route path="/:locale" element={<Home nobelPrizes={nobelPrizes!} />}></Route>
+            <Route path="/:locale?/rewards" element={nobelPrizes ? <YearTable nobelPrizes={nobelPrizes}/> : <div>Placeholder</div>} />
+            <Route path="/:locale?/rewards/:year" element={nobelPrizes ? <YearTable nobelPrizes={nobelPrizes}/> : <div>Placeholder</div>} />
             <Route path="*" element={<Error />} />
           </Route>
         </Routes>

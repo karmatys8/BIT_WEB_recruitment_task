@@ -23,13 +23,15 @@ import { visuallyHidden } from '@mui/utils';
 import { NobelPrize, Row, Order, HeadCell, TableProps } from "../types";
 import { dotDateFormat, spaceNumberFormat, getComparator } from '../functions';
 import { v4 as uuidv4 } from 'uuid';
+import i18n from '../i18n';
+import { useTranslation } from 'react-i18next';
 
 
 
 const headCells: readonly HeadCell[] = [
   {
     id: 'awardYear',
-    label: 'Prize Year',
+    label: 'Prize year',
   },
   {
     id: 'category',
@@ -45,7 +47,7 @@ const headCells: readonly HeadCell[] = [
     align: "right",
     label: 'Prize amount',
   },
-];
+];//.map((elem, idx) => {elem.label = t("yearHeadCellLabels")[idx]});
 
 const EnhancedTableHead: React.FC<TableProps> = ({
   order, orderBy, onRequestSort
@@ -87,6 +89,14 @@ const EnhancedTableHead: React.FC<TableProps> = ({
 
 
 const YearTableToolbar: React.FC = () => {
+  const { year, locale = "en" } = useParams();
+  const { i18n, t } = useTranslation();
+
+  useEffect(() => {
+    i18n.changeLanguage(locale);
+  }, [])
+
+
   return (
     <Toolbar
       sx={{ pl: 6 , pr: 1 }}
@@ -97,9 +107,9 @@ const YearTableToolbar: React.FC = () => {
         id="tableTitle"
         component="div"
       >
-        Nobel Prizes
+        {t("yearTableHeader")}
       </Typography>
-      <Tooltip title="Filter list">
+      <Tooltip title={t("yearFilterListTitle")}>
         <IconButton>
           <FilterListIcon />
         </IconButton>
@@ -121,21 +131,31 @@ const YearTable: React.FC<Props> = ({
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const {year, locale} = useParams(); // maybe change 'year' to 'pickedYear'
+  const { year, locale = "en" } = useParams();
   const [rows, setRows] = useState<Row[]>();
+
+  const { i18n, t } = useTranslation();
+
+  useEffect(() => {
+    i18n.changeLanguage(locale);
+  }, [])
 
 
   function mapNobelPrizeToRow(nobelPrize: NobelPrize): Row {
     return {
       awardYear: nobelPrize.awardYear,
-      category: nobelPrize.category.en,
+      category: nobelPrize.category.en, // change languages here as well
       dateAwarded: nobelPrize.dateAwarded,
       prizeAmount: nobelPrize.prizeAmount
     }
   }
 
   useEffect(() => {
-    nobelPrizes && setRows(nobelPrizes.map(prize => mapNobelPrizeToRow(prize)));
+    let prizes = nobelPrizes;
+    if (year) prizes =  prizes.filter(prize => prize.awardYear == Number(year));
+
+    setRows(prizes.map(prize => mapNobelPrizeToRow(prize)));
+
   }, [nobelPrizes, year])
 
 
@@ -192,9 +212,7 @@ const YearTable: React.FC<Props> = ({
               onRequestSort={handleRequestSort}
             />
             <TableBody>
-              {visibleRows && visibleRows.map((row: Row, index: number) => {
-                const labelId = `enhanced-table-checkbox-${index}`;
-
+              {visibleRows && visibleRows.map((row: Row) => {
                 return (
                   <TableRow
                     hover
@@ -224,7 +242,7 @@ const YearTable: React.FC<Props> = ({
         <Box sx={{display: "flex", justifyContent: "space-between"}}>
           <FormControlLabel
             control={<Switch checked={dense} onChange={handleChangeDense} />}
-            label="Dense padding"
+            label={t("yearDensePadding")}
             sx={{ ml: 2 }}
           />
           <TablePagination
