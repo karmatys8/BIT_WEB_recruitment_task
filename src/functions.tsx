@@ -1,4 +1,4 @@
-import { Order } from "./types";
+import { NobelPrize, Order, Row, SupportedLanguages } from "./types";
 
 
 export function dotDateFormat(date: Date): string {
@@ -37,4 +37,14 @@ export function getComparator<Key extends keyof any>(
   return order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
+}
+
+
+export function mapNobelPrizeToRow(nobelPrize: NobelPrize, locale: SupportedLanguages): Row {
+  return {
+    awardYear: nobelPrize.awardYear,
+    category: nobelPrize.category[locale],
+    dateAwarded: nobelPrize.dateAwarded,
+    prizeAmount: nobelPrize.prizeAmount
+  }
 }

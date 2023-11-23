@@ -1,0 +1,25 @@
+{
+  "languages": [
+    {
+      "name": "en",
+      "muiImportName": "enUS",
+      "extendedName": "english",
+      "country": "England",
+      "relativeImgPath": "/images/flags/en.svg"
+    },
+    {
+      "name": "no",
+      "muiImportName": "nnNO",
+      "extendedName": "norwegian",
+      "country": "Norway",
+      "relativeImgPath": "/images/flags/no.svg"
+    },
+    {
+      "name": "se",
+      "muiImportName": "svSE",
+      "extendedName": "swedish",
+      "country": "Sweden",
+      "relativeImgPath": "/images/flags/se.svg"
+    }
+  ]
+}

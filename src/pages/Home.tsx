@@ -9,8 +9,8 @@ import Button from '@mui/material/Button';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 import { NobelPrize } from '../types';
-import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 
 
 type Props = {
@@ -22,13 +22,9 @@ const Home: React.FC<Props> = ({
 }) => {
   const [prizesYears, setPrizesYears] = useState<number[]>([]);
   const [pickedYear, setPickedYear] = useState<string>('');
+  const location = useLocation();
 
-  const { locale = "en" } = useParams();
-  const { i18n, t } = useTranslation();
-
-  useEffect(() => {
-    i18n.changeLanguage(locale);
-  }, [])
+  const { t } = useTranslation();
 
 
   useEffect(() => {
@@ -83,7 +79,7 @@ const Home: React.FC<Props> = ({
           <Typography variant='h6' component='p' margin={1}>
             {t("homeResultsInstruction")}
           </Typography>
-          <Button href={"./rewards/" + pickedYear} variant="contained" disabled={! pickedYear}>
+          <Button href={`${location.pathname}/rewards/${pickedYear}`} variant="contained" disabled={! pickedYear}>
             {t("homeSearchForRewardsButton")}
           </Button>
         </Box>

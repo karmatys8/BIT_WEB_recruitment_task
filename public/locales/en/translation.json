@@ -1,0 +1,18 @@
+{
+  "appBarChangeLanguageLabel": "Change language",
+  "englishFlagTitle": "English",
+  "norwegianFlagTitle": "Norwegian",
+  "swedishFlagTitle": "Swedish",
+  "homeHeader": "Nobel prize winners website",
+  "homeInstructions": "You can easily get access to information about Nobel prize winners by following thwe short guide below.",
+  "homeFormInstruction": "Pick Nobel prize year:",
+  "homeInputLabel": "Prize year",
+  "homeResultsInstruction": "Then click button below to view results.",
+  "homeSearchForRewardsButton": "Search for Rewards",
+  "yearHeadCellLabels": ["Prize year", "Category", "Date", "Prize amount"],
+  "yearTableHeader": "Nobel Prizes",
+  "yearFilterListTitle": "Filter list",
+  "yearDensePadding": "Dense padding",
+  "yearRowsPerPage": "Rows per page:",
+  "errorMessage": "Error 404 Not Found"
+}

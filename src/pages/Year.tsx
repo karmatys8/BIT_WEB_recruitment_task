@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useContext} from 'react';
 import { useParams } from "react-router-dom";
 
 import Box from '@mui/material/Box';
@@ -20,11 +20,11 @@ import Switch from '@mui/material/Switch';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 
-import { NobelPrize, Row, Order, HeadCell, TableProps } from "../types";
-import { dotDateFormat, spaceNumberFormat, getComparator } from '../functions';
+import { NobelPrize, Row, Order, HeadCell, TableProps, SupportedLanguages } from "../types";
+import { dotDateFormat, spaceNumberFormat, getComparator, mapNobelPrizeToRow } from '../functions';
 import { v4 as uuidv4 } from 'uuid';
-import i18n from '../i18n';
 import { useTranslation } from 'react-i18next';
+import { LocaleContext } from './SharedLayout';
 
 
 
@@ -47,7 +47,7 @@ const headCells: readonly HeadCell[] = [
     align: "right",
     label: 'Prize amount',
   },
-];//.map((elem, idx) => {elem.label = t("yearHeadCellLabels")[idx]});
+];
 
 const EnhancedTableHead: React.FC<TableProps> = ({
   order, orderBy, onRequestSort
@@ -57,7 +57,6 @@ const EnhancedTableHead: React.FC<TableProps> = ({
     (property: keyof Row) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
-
 
   return (
     <TableHead>
@@ -89,13 +88,7 @@ const EnhancedTableHead: React.FC<TableProps> = ({
 
 
 const YearTableToolbar: React.FC = () => {
-  const { year, locale = "en" } = useParams();
-  const { i18n, t } = useTranslation();
-
-  useEffect(() => {
-    i18n.changeLanguage(locale);
-  }, [])
-
+  const { t } = useTranslation();
 
   return (
     <Toolbar
@@ -131,30 +124,21 @@ const YearTable: React.FC<Props> = ({
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const { year, locale = "en" } = useParams();
   const [rows, setRows] = useState<Row[]>();
-
-  const { i18n, t } = useTranslation();
+  const { year } = useParams();
+  const locale = useContext<SupportedLanguages>(LocaleContext);
+  const { t } = useTranslation();
 
   useEffect(() => {
-    i18n.changeLanguage(locale);
-  }, [])
+    headCells.forEach((elem, idx) => {elem.label = t("yearHeadCellLabels." + idx)});
+  }, [locale, t])
 
-
-  function mapNobelPrizeToRow(nobelPrize: NobelPrize): Row {
-    return {
-      awardYear: nobelPrize.awardYear,
-      category: nobelPrize.category.en, // change languages here as well
-      dateAwarded: nobelPrize.dateAwarded,
-      prizeAmount: nobelPrize.prizeAmount
-    }
-  }
 
   useEffect(() => {
     let prizes = nobelPrizes;
     if (year) prizes =  prizes.filter(prize => prize.awardYear == Number(year));
 
-    setRows(prizes.map(prize => mapNobelPrizeToRow(prize)));
+    setRows(prizes.map(prize => mapNobelPrizeToRow(prize, locale)));
 
   }, [nobelPrizes, year])
 

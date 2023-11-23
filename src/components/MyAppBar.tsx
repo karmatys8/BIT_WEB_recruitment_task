@@ -8,20 +8,19 @@ import IconButton from "@mui/material/IconButton";
 import CottageIcon from '@mui/icons-material/Cottage';
 
 import MaterialUISwitch from "./MaterialUISwitch";
-import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useEffect } from "react";
+
+import languages from "../languages.json"
+import { Language, supportedLanguagesArray } from "../types";
+import { useLocation } from "react-router-dom";
 
 
 function MyAppBar() {
-  const { locale = "en" } = useParams();
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
+  const location = useLocation();
+  const languageRegExp = new RegExp(`\/(${supportedLanguagesArray.join('|')})`);
 
-  useEffect(() => {
-    i18n.changeLanguage(locale);
-  }, [])
-
-  
+  console.log(location.pathname)
   return (
     <Box sx={{ flexGrow: 1, mb: 5 }}>
       <AppBar position="static">
@@ -32,9 +31,10 @@ function MyAppBar() {
               size="large"
               edge="start"
               color="inherit"
-              aria-label="menu"
-              href="/"
-            > {/* maybe add title */}
+              aria-label="Home"
+              title="Home"
+              href={location.pathname.match(languageRegExp) !== null ? location.pathname.match(languageRegExp)![0] : "/en"}
+            >
             <CottageIcon />
           </IconButton>
             </Typography>
@@ -43,15 +43,19 @@ function MyAppBar() {
             </Box>
             <label>
               {t("appBarChangeLanguageLabel")}
-              <Button href={"/en" + window.location.pathname}>
-                <img src={process.env.PUBLIC_URL + "/images/flags/en.svg"} alt="England's flag" title={t("englishFlagTitle")}/>
-              </Button>
-              <Button href={"/no" + window.location.pathname}>
-                <img src={process.env.PUBLIC_URL + "/images/flags/no.svg"} alt="Norway's flag" title={t("norwegianFlagTitle")}/>
-              </Button>
-              <Button href={"/se" + window.location.pathname}>
-                <img src={process.env.PUBLIC_URL + "/images/flags/se.svg"} alt="Sweden's flag" title={t("swedishFlagTitle")}/>
-              </Button>
+              {(languages.languages as Language[]).map(lng => 
+                <Button
+                  href={location.pathname.replace(languageRegExp, `/${lng.name}`
+                    )}
+                  key={lng.name}
+                >
+                  <img
+                    src={process.env.PUBLIC_URL + lng.relativeImgPath}
+                    alt={lng.country + "'s flag"}
+                    title={t(lng.extendedName + "FlagTitle")}
+                  />
+                </Button>
+              )}
             </label>
           </Toolbar>
         </Container>

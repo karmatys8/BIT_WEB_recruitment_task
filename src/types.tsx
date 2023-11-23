@@ -31,10 +31,22 @@ export interface HeadCell {
   label: string;
 }
 
-export type Order = 'asc' | 'desc';
+export type Order = "asc" | "desc";
 
 export interface TableProps {
   onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Row) => void;
   order: Order;
   orderBy: string;
 }
+
+
+export interface Language {
+  name: string,
+  muiImportName: string,
+  extendedName: string,
+  country: string,
+  relativeImgPath: string
+}
+
+export const supportedLanguagesArray = ["en", "no", "se"] as const;
+export type SupportedLanguages = typeof supportedLanguagesArray[0];

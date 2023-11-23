@@ -1,0 +1,18 @@
+{
+  "appBarChangeLanguageLabel": "Skifte språk",
+  "englishFlagTitle": "Engelsk",
+  "norwegianFlagTitle": "Norsk",
+  "swedishFlagTitle": "Svensk",
+  "homeHeader": "Nobelprisvinnernes nettsted",
+  "homeInstructions": "Du kan enkelt få tilgang til informasjon om nobelprisvinnere ved å følge den korte veiledningen nedenfor.",
+  "homeFormInstruction": "Velg nobelprisår:",
+  "homeInputLabel": "Prisår",
+  "homeResultsInstruction": "Then click button below to view results.",
+  "homeSearchForRewardsButton": "Klikk deretter på knappen nedenfor for å se resultatene.",
+  "yearHeadCellLabels": ["Premieår", "Kategori", "Dato", "Premiebeløp"],
+  "yearTableHeader": "Nobelpriser",
+  "yearFilterListTitle": "Filterliste",
+  "yearDensePadding": "Tett polstring",
+  "yearRowsPerPage": "Rader per side:",
+  "errorMessage": "Feil 404 ikke funnet"
+}

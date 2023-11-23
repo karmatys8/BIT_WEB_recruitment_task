@@ -44,3 +44,10 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+## Furhter improvements
+
+1. I assumed that I should not add any columns besides those listed in task description, hence I could not add Id and in result had to use Table instead of Data Grid. Data Grid has built in sorting and filtering that obviously are more optimised than my code.
+2. LocaleContext probably should be on App level.
+3. Enable language change on Error page.
