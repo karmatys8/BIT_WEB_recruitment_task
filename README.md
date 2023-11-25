@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Getting Started with Create React App // POSZUKAJ JAK U NNYCH TO JEST NAPISANE
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -48,6 +48,9 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## Furhter improvements
 
-1. I assumed that I should not add any columns besides those listed in task description, hence I could not add Id and in result had to use Table instead of Data Grid. Data Grid has built in sorting and filtering that obviously are more optimised than my code.
+1. I assumed that I should not add any columns besides those listed in task description, hence I could not add Id and in result had to use Table instead of Data Grid. Data Grid has built in sorting and filtering that obviously are more optimized than my code.
 2. LocaleContext probably should be on App level.
 3. Enable language change on Error page.
+4. There is an Warning: Cannot update a component (`MyAppBar`) while rendering a different component (`SharedLayout`). To locate the bad setState() call inside `SharedLayout`. To be frank I don't have time to fix it. My best assumption is that when isDarkMode state updates MUI Switch updates and then SharedLayout cannot update because MyAppBar component hasn't re-rendered yet. *Website still works but it is a bad practice*
+5. user prefered color scheme is not taken into account. It could be done with useMediaQuery('(prefers-color-scheme: dark)').
+6. There is a theme flickering while dark-mode is activated. It happens because dark mode logic happens after the html element is already loaded.

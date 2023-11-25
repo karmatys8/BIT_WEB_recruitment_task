@@ -13,14 +13,22 @@ import { useTranslation } from "react-i18next";
 import languages from "../languages.json"
 import { Language, supportedLanguagesArray } from "../types";
 import { useLocation } from "react-router-dom";
+import { useContext } from "react";
+import { IsDarkModeContext } from "../pages/SharedLayout";
+
+interface Props {
+  isDarkMode: boolean,
+  setIsDarkMode: React.Dispatch<React.SetStateAction<boolean>>
+}
 
 
-function MyAppBar() {
+const MyAppBar: React.FC = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const languageRegExp = new RegExp(`\/(${supportedLanguagesArray.join('|')})`);
+  const {isDarkMode, setIsDarkMode} = useContext(IsDarkModeContext)!;
 
-  console.log(location.pathname)
+  
   return (
     <Box sx={{ flexGrow: 1, mb: 5 }}>
       <AppBar position="static">
@@ -38,8 +46,8 @@ function MyAppBar() {
             <CottageIcon />
           </IconButton>
             </Typography>
-            <Box sx={{ flexGrow: 1, textAlign: "left"}}> {/* a bit of a band-aid solution */}
-              <MaterialUISwitch/>
+            <Box sx={{ flexGrow: 1, textAlign: "left"}}>
+              <MaterialUISwitch onChange={() => setIsDarkMode((prev) => !prev)} checked={isDarkMode}/>
             </Box>
             <label>
               {t("appBarChangeLanguageLabel")}
