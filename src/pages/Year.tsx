@@ -49,7 +49,7 @@ const headCells: readonly HeadCell[] = [
   },
   {
     id: "dateAwarded",
-    align: "center", // maybe better of with left
+    align: "center",
     label: "Date",
   },
   {

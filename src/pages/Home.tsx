@@ -25,7 +25,6 @@ const Home: React.FC<Props> = ({ nobelPrizes }) => {
 
   useEffect(() => {
     if (nobelPrizes !== undefined) {
-      // probably should change it
       const uniqueYears = new Set<number>();
 
       nobelPrizes.map((prize) => uniqueYears.add(prize.awardYear));
