@@ -3,21 +3,21 @@
     {
       "name": "en",
       "muiImportName": "enUS",
-      "extendedName": "english",
+      "fullName": "english",
       "country": "England",
       "relativeImgPath": "/images/flags/en.svg"
     },
     {
       "name": "no",
       "muiImportName": "nnNO",
-      "extendedName": "norwegian",
+      "fullName": "norwegian",
       "country": "Norway",
       "relativeImgPath": "/images/flags/no.svg"
     },
     {
       "name": "se",
       "muiImportName": "svSE",
-      "extendedName": "swedish",
+      "fullName": "swedish",
       "country": "Sweden",
       "relativeImgPath": "/images/flags/se.svg"
     }

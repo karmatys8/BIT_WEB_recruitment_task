@@ -1,58 +1,69 @@
-import React, {useState, useEffect, useRef, useContext} from 'react';
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { useParams } from "react-router-dom";
 
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import { visuallyHidden } from '@mui/utils';
+import Box from "@mui/material/Box";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
+import TableSortLabel from "@mui/material/TableSortLabel";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import { visuallyHidden } from "@mui/utils";
 
-import { NobelPrize, Row, Order, HeadCell, TableProps, SupportedLanguages } from "../types";
-import { dotDateFormat, spaceNumberFormat, getComparator, mapNobelPrizeToRow } from '../functions';
-import { v4 as uuidv4 } from 'uuid';
-import { useTranslation } from 'react-i18next';
-import { LocaleContext } from './SharedLayout';
-
-
+import {
+  NobelPrize,
+  Row,
+  Order,
+  HeadCell,
+  TableProps,
+  SupportedLanguages,
+} from "../types";
+import {
+  dotDateFormat,
+  spaceNumberFormat,
+  getComparator,
+  mapNobelPrizeToRow,
+} from "../functions";
+import { v4 as uuidv4 } from "uuid";
+import { useTranslation } from "react-i18next";
+import { LocaleContext } from "./SharedLayout";
 
 const headCells: readonly HeadCell[] = [
   {
-    id: 'awardYear',
-    label: 'Prize year',
+    id: "awardYear",
+    label: "Prize year",
   },
   {
-    id: 'category',
-    label: 'Category',
+    id: "category",
+    label: "Category",
   },
   {
-    id: 'dateAwarded',
+    id: "dateAwarded",
     align: "center", // maybe better of with left
-    label: 'Date',
+    label: "Date",
   },
   {
-    id: 'prizeAmount',
+    id: "prizeAmount",
     align: "right",
-    label: 'Prize amount',
+    label: "Prize amount",
   },
 ];
 
 const EnhancedTableHead: React.FC<TableProps> = ({
-  order, orderBy, onRequestSort
+  order,
+  orderBy,
+  onRequestSort,
 }) => {
-
   const createSortHandler =
     (property: keyof Row) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
@@ -69,13 +80,13 @@ const EnhancedTableHead: React.FC<TableProps> = ({
           >
             <TableSortLabel
               active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
+              direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  {order === "desc" ? "sorted descending" : "sorted ascending"}
                 </Box>
               ) : null}
             </TableSortLabel>
@@ -84,43 +95,37 @@ const EnhancedTableHead: React.FC<TableProps> = ({
       </TableRow>
     </TableHead>
   );
-}
-
+};
 
 const YearTableToolbar: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <Toolbar
-      sx={{ pl: 6 , pr: 1 }}
-    >
+    <Toolbar sx={{ pl: 6, pr: 1 }}>
       <Typography
-        sx={{ flex: '1 1 100%' }}
+        sx={{ flex: "1 1 100%" }}
         variant="h6"
         id="tableTitle"
         component="div"
       >
-        {t("yearTableHeader")}
+        {t("tableHeader")}
       </Typography>
-      <Tooltip title={t("yearFilterListTitle")}>
+      <Tooltip title={t("filterListTitle")}>
         <IconButton>
           <FilterListIcon />
         </IconButton>
       </Tooltip>
     </Toolbar>
   );
-}
-
+};
 
 type Props = {
-  nobelPrizes: NobelPrize[]
-}
+  nobelPrizes: NobelPrize[];
+};
 
-const YearTable: React.FC<Props> = ({
-  nobelPrizes
-}) => {
-  const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Row>('awardYear');
+const YearTable: React.FC<Props> = ({ nobelPrizes }) => {
+  const [order, setOrder] = React.useState<Order>("asc");
+  const [orderBy, setOrderBy] = React.useState<keyof Row>("awardYear");
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -130,25 +135,25 @@ const YearTable: React.FC<Props> = ({
   const { t } = useTranslation();
 
   useEffect(() => {
-    headCells.forEach((elem, idx) => {elem.label = t("yearHeadCellLabels." + idx)});
-  }, [locale, t])
-
+    headCells.forEach((elem, idx) => {
+      elem.label = t("headCellLabels." + idx);
+    });
+  }, [locale, t]);
 
   useEffect(() => {
     let prizes = nobelPrizes;
-    if (year) prizes =  prizes.filter(prize => prize.awardYear == Number(year));
+    if (year)
+      prizes = prizes.filter((prize) => prize.awardYear == Number(year));
 
-    setRows(prizes.map(prize => mapNobelPrizeToRow(prize, locale)));
-
-  }, [nobelPrizes, year])
-
+    setRows(prizes.map((prize) => mapNobelPrizeToRow(prize, locale)));
+  }, [nobelPrizes, year]);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof Row,
+    property: keyof Row
   ) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 
@@ -156,7 +161,9 @@ const YearTable: React.FC<Props> = ({
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRowsPerPage(parseInt(event.target.value));
     setPage(0);
   };
@@ -165,30 +172,31 @@ const YearTable: React.FC<Props> = ({
     setDense(event.target.checked);
   };
 
-
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - (rows ? rows.length : 0)) : 0;
+    page > 0
+      ? Math.max(0, (1 + page) * rowsPerPage - (rows ? rows.length : 0))
+      : 0;
 
   const visibleRows = React.useMemo(
     () =>
-    rows && rows.slice().sort(getComparator(order, orderBy)).slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage,
-      ),
-    [order, orderBy, page, rowsPerPage, rows],
+      rows &&
+      rows
+        .slice()
+        .sort(getComparator(order, orderBy))
+        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
+    [order, orderBy, page, rowsPerPage, rows]
   );
 
-
   return (
-    <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
+    <Box sx={{ width: "100%" }}>
+      <Paper sx={{ width: "100%", mb: 2 }}>
         <YearTableToolbar />
         <TableContainer>
           <Table
             sx={{ minWidth: 600 }}
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
+            size={dense ? "small" : "medium"}
           >
             <EnhancedTableHead
               order={order}
@@ -196,21 +204,26 @@ const YearTable: React.FC<Props> = ({
               onRequestSort={handleRequestSort}
             />
             <TableBody>
-              {visibleRows && visibleRows.map((row: Row) => {
-                return (
-                  <TableRow
-                    hover
-                    tabIndex={-1}
-                    key={uuidv4()}
-                    sx={{ cursor: 'pointer' }}
-                  >
-                    <TableCell>{row.awardYear}</TableCell>
-                    <TableCell>{row.category}</TableCell>
-                    <TableCell align="center">{dotDateFormat(new Date(row.dateAwarded))}</TableCell>
-                    <TableCell align="right">{spaceNumberFormat(row.prizeAmount)}</TableCell>
-                  </TableRow>
-                );
-              })}
+              {visibleRows &&
+                visibleRows.map((row: Row) => {
+                  return (
+                    <TableRow
+                      hover
+                      tabIndex={-1}
+                      key={uuidv4()}
+                      sx={{ cursor: "pointer" }}
+                    >
+                      <TableCell>{row.awardYear}</TableCell>
+                      <TableCell>{row.category}</TableCell>
+                      <TableCell align="center">
+                        {dotDateFormat(new Date(row.dateAwarded))}
+                      </TableCell>
+                      <TableCell align="right">
+                        {spaceNumberFormat(row.prizeAmount)}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               {emptyRows > 0 && (
                 <TableRow
                   style={{
@@ -223,10 +236,10 @@ const YearTable: React.FC<Props> = ({
             </TableBody>
           </Table>
         </TableContainer>
-        <Box sx={{display: "flex", justifyContent: "space-between"}}>
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <FormControlLabel
             control={<Switch checked={dense} onChange={handleChangeDense} />}
-            label={t("yearDensePadding")}
+            label={t("densePadding")}
             sx={{ ml: 2 }}
           />
           <TablePagination
@@ -237,12 +250,12 @@ const YearTable: React.FC<Props> = ({
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
-            sx = {{display: 'inline-block'}}
+            sx={{ display: "inline-block" }}
           />
         </Box>
       </Paper>
     </Box>
   );
-}
+};
 
 export default YearTable;

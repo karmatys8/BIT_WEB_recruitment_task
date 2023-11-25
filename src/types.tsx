@@ -1,28 +1,26 @@
 export interface NobelPrize {
-  awardYear: number,
+  awardYear: number;
   category: {
-    en: string,
-    no: string,
-    se: string
-  },
+    en: string;
+    no: string;
+    se: string;
+  };
   categoryFullName: {
-    en: string,
-    no: string,
-    se: string
-  },
-  dateAwarded: string,
-  prizeAmount: number,
-  prizeAmountAdjusted: number
+    en: string;
+    no: string;
+    se: string;
+  };
+  dateAwarded: string;
+  prizeAmount: number;
+  prizeAmountAdjusted: number;
 }
-
 
 export interface Row {
-  awardYear: number,
-  category: string,
-  dateAwarded: string,
-  prizeAmount: number
+  awardYear: number;
+  category: string;
+  dateAwarded: string;
+  prizeAmount: number;
 }
-
 
 // year table
 export interface HeadCell {
@@ -34,19 +32,21 @@ export interface HeadCell {
 export type Order = "asc" | "desc";
 
 export interface TableProps {
-  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Row) => void;
+  onRequestSort: (
+    event: React.MouseEvent<unknown>,
+    property: keyof Row
+  ) => void;
   order: Order;
   orderBy: string;
 }
 
-
 export interface Language {
-  name: string,
-  muiImportName: string,
-  extendedName: string,
-  country: string,
-  relativeImgPath: string
+  name: string;
+  muiImportName: string;
+  fullName: string;
+  country: string;
+  relativeImgPath: string;
 }
 
 export const supportedLanguagesArray = ["en", "no", "se"] as const;
-export type SupportedLanguages = typeof supportedLanguagesArray[0];
+export type SupportedLanguages = (typeof supportedLanguagesArray)[0];

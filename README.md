@@ -1,56 +1,34 @@
-# Getting Started with Create React App // POSZUKAJ JAK U NNYCH TO JEST NAPISANE
+# BIT WEB recruitment task
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Spis treści
 
-## Available Scripts
+1. [Instrukcja uruchomienia](#instrukcja-uruchomienia)
+2. [Dlaczego ja?](#dlaczego-ja)
+3. [Further improvements](#furhter-improvements)
 
-In the project directory, you can run:
+## Instrukcja uruchomienia
 
-### `npm start`
+*W całej instrukcji zakładam że masz zainstalowany npm.*
+1. Przejdź w terminalu do folderu w którym chcesz repo do sprawdzenia.
+2. Wpisz w terminalu: `git clone https://github.com/karmatys8/BIT_WEB_recruitment_task.git`
+3. Wpisz w terminalu: `cd BIT_WEB_recruitment_task`
+4. Wpisz w terminalu: `npm install`
+5. Wpisz w termianlu: `npm start` lub kolejno `npm run build` oraz `serve -s build`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Dlaczego ja?
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Komunikacja z innymi ludźmi przychodzi mi z łatwością.
+2. Szybko się uczę - MUI, Routingu i i18next nauczyłęm się na potrzeby tego projektu. I uważam że jak na niecałe 2 tygodnie to wyszło całkiem nieźle :)
+3. Podoba mi się pisanie FE i robię to w wolnym czasie od prawie roku.
+4. Zależy mi na lepszym UI i UX enrolla bo z niego korzystam. I ogólnie chciałbym wziąść udział w większym projekcie.
 
 
 ## Furhter improvements
 
-1. I assumed that I should not add any columns besides those listed in task description, hence I could not add Id and in result had to use Table instead of Data Grid. Data Grid has built in sorting and filtering that obviously are more optimized than my code.
+1. I assumed that you wanted me to build a custom Table so I didn't use Data Grid. Which has built in sorting and filtering that obviously are more optimized than my code.
 2. LocaleContext probably should be on App level.
-3. Enable language change on Error page.
-4. There is an Warning: Cannot update a component (`MyAppBar`) while rendering a different component (`SharedLayout`). To locate the bad setState() call inside `SharedLayout`. To be frank I don't have time to fix it. My best assumption is that when isDarkMode state updates MUI Switch updates and then SharedLayout cannot update because MyAppBar component hasn't re-rendered yet. *Website still works but it is a bad practice*
-5. user prefered color scheme is not taken into account. It could be done with useMediaQuery('(prefers-color-scheme: dark)').
-6. There is a theme flickering while dark-mode is activated. It happens because dark mode logic happens after the html element is already loaded.
+3. There is an Warning: Cannot update a component (`MyAppBar`) while rendering a different component (`SharedLayout`). To locate the bad setState() call inside `SharedLayout`. To be frank I don't have time to fix it. My best assumption is that when isDarkMode state updates MUI Switch updates and then SharedLayout cannot update because MyAppBar component hasn't re-rendered yet. *Website still works but it is a bad practice*
+4. User prefered color scheme is not taken into account. It could be done with useMediaQuery('(prefers-color-scheme: dark)').
+5. There is a light theme flashing while dark-mode is activated. It happens because dark mode logic happens after the html element is already loaded.
+6. Error Page could look nicer.
+7. When incorrect year is typed in there should be some placeholder/info.
